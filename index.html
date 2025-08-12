@@ -1,0 +1,2593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechDharmaStudio | Luxury Photography & Cinematography</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@200;300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0a0a;
+            --gold: #D4AF37;
+            --gold-light: #F4E4B1;
+            --white: #ffffff;
+            --gray: #8a8a8a;
+            --dark-gray: #2a2a2a;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-dark: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8) 100%);
+        }
+
+        ::selection {
+            background: var(--gold);
+            color: var(--primary);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--primary);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor - Hide on mobile */
+        .cursor,
+        .cursor-follower {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            transition: all 0.1s ease;
+            z-index: 10000;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+            z-index: 9999;
+        }
+
+        .cursor-expand {
+            transform: scale(2);
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        /* Premium Loader */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100000;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .loader-container.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-content {
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .loader-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s infinite;
+            margin-bottom: 2rem;
+        }
+
+        .loader-bar {
+            width: min(200px, 80vw);
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .loader-progress {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 10px;
+            animation: loading 2s ease-in-out;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Floating Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 0;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav.scrolled {
+            padding: 0.7rem 0;
+            background: rgba(10, 10, 10, 0.95);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 4vw, 1.8rem);
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-link:hover {
+            color: var(--gold);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--gradient-1);
+            color: var(--white);
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-2);
+            transition: left 0.3s ease;
+        }
+
+        .nav-cta:hover::before {
+            left: 0;
+        }
+
+        .nav-cta span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section - Ultimate Design */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--primary);
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(10,10,10,0.4) 50%, rgba(10,10,10,0.9) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            max-width: 1000px;
+            padding: 0 2rem;
+            animation: heroEntry 1.5s ease-out;
+        }
+
+        @keyframes heroEntry {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            font-weight: 300;
+            letter-spacing: clamp(2px, 1.5vw, 5px);
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, var(--white) 0%, var(--gray) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: 300;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.7s both;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .btn-primary {
+            padding: 1.2rem 3rem;
+            background: var(--gradient-1);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: none;
+            display: inline-block;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-2);
+            transition: left 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-secondary {
+            padding: 1.2rem 3rem;
+            background: transparent;
+            color: var(--white);
+            text-decoration: none;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            cursor: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+
+        .floating-element-1 {
+            top: 20%;
+            left: 10%;
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: float1 20s infinite ease-in-out;
+        }
+
+        .floating-element-2 {
+            bottom: 20%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: float2 25s infinite ease-in-out;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-30px, 30px) scale(1.1); }
+            66% { transform: translate(20px, -20px) scale(0.9); }
+        }
+
+        /* Services Section - Luxury Cards */
+        .services {
+            padding: 8rem 0;
+            background: var(--primary);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+            padding: 0 1rem;
+        }
+
+        .section-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            font-weight: 400;
+            letter-spacing: clamp(2px, 1vw, 3px);
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, var(--white) 0%, var(--gray) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .section-description {
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: none;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(212,175,55,0.1), transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.08));
+            border-color: var(--gold);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotate(5deg) scale(1.1);
+            background: var(--gradient-2);
+        }
+
+        .service-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .service-description {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            color: var(--gray);
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+        }
+
+        /* Portfolio Gallery - Masonry Grid */
+        .portfolio {
+            padding: 8rem 0;
+            background: linear-gradient(180deg, var(--primary) 0%, #0f0f0f 100%);
+        }
+
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            color: var(--gray);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: none;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--gradient-1);
+            color: var(--white);
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #1a1a1a;
+            cursor: none;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .portfolio-item:nth-child(3n+1) {
+            grid-row: span 2;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .portfolio-item:hover .portfolio-image {
+            transform: scale(1.1);
+            filter: brightness(0.7);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.9) 100%);
+            padding: 3rem 2rem 2rem;
+            transform: translateY(100%);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+        .portfolio-category {
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-description {
+            color: var(--gray);
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+        }
+
+        /* About Section - Cinematic */
+        .about {
+            padding: 8rem 0;
+            background: var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image-main {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about-image-main img {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .about-image-main:hover img {
+            transform: scale(1.05);
+        }
+
+        .about-floating-card {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            background: var(--gradient-1);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 900;
+            color: var(--white);
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.9);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+        }
+
+        .about-content h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .about-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .about-content p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: clamp(0.95rem, 3vw, 1.05rem);
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+
+        .feature-text p {
+            color: var(--gray);
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+        }
+
+        /* Pricing Section - Premium Tables */
+        .pricing {
+            padding: 8rem 0;
+            background: linear-gradient(180deg, #0f0f0f 0%, var(--primary) 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .pricing-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 3rem;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: none;
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(145deg, rgba(212,175,55,0.05), rgba(212,175,55,0.1));
+            border-color: var(--gold);
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-1);
+            color: var(--white);
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .pricing-card.featured:hover {
+            transform: translateY(-10px) scale(1.07);
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .pricing-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 1.8rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-subtitle {
+            color: var(--gray);
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+        }
+
+        .pricing-price {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .price-amount {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .price-currency {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 1rem 0;
+            color: var(--gray);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 1.2rem;
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50px;
+            color: var(--white);
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            cursor: none;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background: var(--gradient-1);
+            border-color: transparent;
+        }
+
+        .pricing-cta:hover {
+            background: var(--gradient-1);
+            border-color: transparent;
+            transform: translateY(-2px);
+        }
+
+        /* Contact Section - Modern Form */
+        .contact {
+            padding: 8rem 0;
+            background: var(--primary);
+            position: relative;
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.08));
+            border-color: var(--gold);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--white);
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .contact-details p {
+            color: var(--gray);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            line-height: 1.6;
+        }
+
+        .contact-form {
+            background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.05));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 30px;
+            padding: 3rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            font-weight: 500;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 1.2rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            color: var(--white);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            transition: all 0.3s ease;
+            cursor: none;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: var(--gray);
+        }
+
+        .form-textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50px;
+            color: var(--white);
+            font-size: clamp(1rem, 3vw, 1.1rem);
+            font-weight: 600;
+            cursor: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-2);
+            transition: left 0.3s ease;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .form-submit:hover::before {
+            left: 0;
+        }
+
+        .form-submit span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer - Minimal Luxury */
+        .footer {
+            background: linear-gradient(180deg, var(--primary) 0%, #000000 100%);
+            padding: 5rem 0 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: none;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: var(--gradient-1);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .footer-section h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: none;
+            font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+            padding-left: 0.5rem;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: var(--gray);
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            background: transparent;
+            border: none;
+            cursor: none;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--white);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            transition: left 0.3s ease;
+            z-index: 10000;
+        }
+
+        .mobile-menu.active {
+            left: 0;
+        }
+
+        .mobile-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: clamp(1.2rem, 5vw, 1.5rem);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--gold);
+            transform: scale(1.1);
+        }
+
+        /* Animation Classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-animation:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-animation:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-animation:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-animation:nth-child(4) { transition-delay: 0.4s; }
+        .stagger-animation:nth-child(5) { transition-delay: 0.5s; }
+        .stagger-animation:nth-child(6) { transition-delay: 0.6s; }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-0 { margin-bottom: 0; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+
+        .mt-0 { margin-top: 0; }
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+
+        /* Mobile Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            .nav-container {
+                padding: 0 2rem;
+            }
+            
+            .about-container,
+            .contact-container {
+                gap: 3rem;
+            }
+
+            .floating-element-1,
+            .floating-element-2 {
+                display: none;
+            }
+        }
+
+        @media (max-width: 968px) {
+            /* Hide custom cursor on mobile */
+            .cursor,
+            .cursor-follower {
+                display: none;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            * {
+                cursor: auto !important;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .nav-container {
+                padding: 0 1.5rem;
+            }
+
+            .hero-content {
+                padding: 0 1.5rem;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+
+            .services-grid,
+            .portfolio-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1.5rem;
+                gap: 2rem;
+            }
+
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                padding: 0 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .about-floating-card {
+                position: static;
+                margin-top: 2rem;
+                margin-right: 0;
+                align-self: center;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .portfolio-item:nth-child(3n+1) {
+                grid-row: span 1;
+            }
+
+            .portfolio-filters {
+                gap: 0.5rem;
+            }
+
+            .filter-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-10px) scale(1.02);
+            }
+
+            .section-header {
+                margin-bottom: 3rem;
+            }
+
+            .services,
+            .portfolio,
+            .about,
+            .pricing,
+            .contact {
+                padding: 5rem 0;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .services-grid,
+            .portfolio-grid,
+            .pricing-grid {
+                padding: 0 1rem;
+                gap: 1.5rem;
+            }
+
+            .about-container,
+            .contact-container,
+            .footer-container {
+                padding: 0 1rem;
+            }
+
+            .service-card,
+            .pricing-card,
+            .contact-form {
+                padding: 2rem;
+            }
+
+            .contact-item {
+                padding: 1.5rem;
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 1rem;
+            }
+
+            .hero {
+                min-height: 100vh;
+                padding: 1rem 0;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .section-header {
+                margin-bottom: 2rem;
+            }
+
+            .services,
+            .portfolio,
+            .about,
+            .pricing,
+            .contact {
+                padding: 4rem 0;
+            }
+
+            .about-image-main img {
+                height: 400px;
+            }
+
+            .portfolio-overlay {
+                padding: 2rem 1.5rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-cta-group {
+                width: 100%;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                max-width: none;
+                width: 100%;
+            }
+
+            .service-card,
+            .pricing-card,
+            .contact-form {
+                padding: 1.5rem;
+            }
+
+            .contact-item {
+                padding: 1rem;
+            }
+
+            .footer-content {
+                gap: 1.5rem;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .about-floating-card {
+                padding: 1.5rem;
+                border-radius: 15px;
+            }
+
+            .about-image-main img {
+                height: 300px;
+            }
+
+            .about-image-main,
+            .service-card,
+            .pricing-card,
+            .contact-form,
+            .contact-item,
+            .portfolio-item {
+                border-radius: 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .services,
+            .portfolio,
+            .about,
+            .pricing,
+            .contact {
+                padding: 3rem 0;
+            }
+
+            .section-header {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Landscape Mobile Orientation */
+        @media (max-width: 968px) and (orientation: landscape) {
+            .hero {
+                height: auto;
+                min-height: 100vh;
+                padding: 2rem 0;
+            }
+
+            .hero-content {
+                padding: 1rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 6vw, 4rem);
+            }
+        }
+
+        /* High DPI Display Support */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .portfolio-image,
+            .about-image-main img {
+                image-rendering: -webkit-optimize-contrast;
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .service-card:hover,
+            .portfolio-item:hover,
+            .pricing-card:hover,
+            .contact-item:hover {
+                transform: none;
+            }
+
+            .portfolio-overlay {
+                transform: translateY(0);
+                background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.9) 100%);
+                padding: 2rem 1.5rem 1.5rem;
+            }
+
+            .portfolio-item:hover .portfolio-image {
+                transform: none;
+                filter: none;
+            }
+
+            .nav-link:hover,
+            .footer-links a:hover {
+                padding-left: 0;
+            }
+        }
+
+        /* Reduce Motion for Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .floating-element-1,
+            .floating-element-2 {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Premium Loader -->
+    <div class="loader-container" id="loader">
+        <div class="loader-content">
+            <div class="loader-logo">TechDharmaStudio</div>
+            <div class="loader-bar">
+                <div class="loader-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <div class="logo-text">TechDharmaStudio</div>
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <a href="#contact" class="nav-cta">
+                <span>Book Session</span>
+            </a>
+
+            <button class="mobile-menu-toggle" id="mobile-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#about">About</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn-primary">Book Session</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <video class="hero-video" autoplay muted loop>
+                <source src="https://player.vimeo.com/external/299218053.hd.mp4?s=cd5c2f9b8c88be026f2b2a7f0b37e0b8f50e73e7&profile_id=119" type="video/mp4">
+            </video>
+        </div>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <div class="hero-subtitle">Luxury Visual Storytelling</div>
+            <h1 class="hero-title">Capturing Life's Most Precious Moments</h1>
+            <p class="hero-description">
+                We create timeless photography and cinematic experiences that preserve your memories with unparalleled artistry and elegance.
+            </p>
+            <div class="hero-cta-group">
+                <a href="#portfolio" class="btn-primary">
+                    <span>View Our Work</span>
+                </a>
+                <a href="#contact" class="btn-secondary">Book Consultation</a>
+            </div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="floating-element floating-element-1"></div>
+        <div class="floating-element floating-element-2"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-subtitle">Our Expertise</div>
+                <h2 class="section-title">Premium Photography & Cinematography Services</h2>
+                <p class="section-description">
+                    From intimate moments to grand celebrations, we craft visual narratives that transcend ordinary photography.
+                </p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card animate-on-scroll stagger-animation">
+                    <div class="service-icon">📸</div>
+                    <h3 class="service-title">Wedding Photography</h3>
+                    <p class="service-description">
+                        Capture the magic of your special day with our luxury wedding photography that tells your unique love story.
+                    </p>
+                    <ul class="service-features">
+                        <li>Full-day coverage</li>
+                        <li>Professional editing</li>
+                        <li>Online gallery</li>
+                        <li>Print release</li>
+                    </ul>
+                </div>
+
+                <div class="service-card animate-on-scroll stagger-animation">
+                    <div class="service-icon">🎬</div>
+                    <h3 class="service-title">Cinematic Films</h3>
+                    <p class="service-description">
+                        Create breathtaking cinematic experiences that bring your story to life with Hollywood-quality production.
+                    </p>
+                    <ul class="service-features">
+                        <li>4K video production</li>
+                        <li>Drone cinematography</li>
+                        <li>Professional audio</li>
+                        <li>Color grading</li>
+                    </ul>
+                </div>
+
+                <div class="service-card animate-on-scroll stagger-animation">
+                    <div class="service-icon">👑</div>
+                    <h3 class="service-title">Portrait Sessions</h3>
+                    <p class="service-description">
+                        Elegant portrait photography that captures your personality and essence with timeless sophistication.
+                    </p>
+                    <ul class="service-features">
+                        <li>Studio & outdoor sessions</li>
+                        <li>Professional lighting</li>
+                        <li>Wardrobe consultation</li>
+                        <li>Retouching included</li>
+                    </ul>
+                </div>
+
+                <div class="service-card animate-on-scroll stagger-animation">
+                    <div class="service-icon">🏢</div>
+                    <h3 class="service-title">Corporate Events</h3>
+                    <p class="service-description">
+                        Professional documentation of your corporate events with a focus on brand storytelling and engagement.
+                    </p>
+                    <ul class="service-features">
+                        <li>Event documentation</li>
+                        <li>Brand-focused imagery</li>
+                        <li>Quick turnaround</li>
+                        <li>Commercial licensing</li>
+                    </ul>
+                </div>
+
+                <div class="service-card animate-on-scroll stagger-animation">
+                    <div class="service-icon">💍</div>
+                    <h3 class="service-title">Pre-Wedding Shoots</h3>
+                    <p class="service-description">
+                        Romantic engagement photography that celebrates your love story in stunning locations.
+                    </p>
+                    <ul class="service-features">
+                        <li>Location scouting</li>
+                        <li>Multiple outfit changes</li>
+                        <li>Couple's consultation</li>
+                        <li>Save-the-date designs</li>
+                    </ul>
+                </div>
+
+                <div class="service-card animate-on-scroll stagger-animation">
+                    <div class="service-icon">🎨</div>
+                    <h3 class="service-title">Creative Photography</h3>
+                    <p class="service-description">
+                        Artistic photography that transforms moments into museum-quality fine art pieces.
+                    </p>
+                    <ul class="service-features">
+                        <li>Artistic vision</li>
+                        <li>Gallery-quality prints</li>
+                        <li>Limited editions</li>
+                        <li>Certificate of authenticity</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-subtitle">Our Work</div>
+                <h2 class="section-title">A Portfolio of Extraordinary Moments</h2>
+                <p class="section-description">
+                    Explore our collection of carefully crafted visual stories that showcase our commitment to excellence.
+                </p>
+            </div>
+
+            <div class="portfolio-filters animate-on-scroll">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="wedding">Weddings</button>
+                <button class="filter-btn" data-filter="portrait">Portraits</button>
+                <button class="filter-btn" data-filter="baby">Baby</button>
+                <button class="filter-btn" data-filter="maternity">Maternity</button>
+                <button class="filter-btn" data-filter="haldi">Haldi</button>
+            </div>
+
+            <div class="portfolio-grid" id="portfolio-grid">
+                <div class="portfolio-item animate-on-scroll stagger-animation" data-category="wedding">
+                    <img src="Wedding.jpg" alt="Wedding Photography" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">Wedding</div>
+                        <h3 class="portfolio-title">Beautiful Wedding</h3>
+                        <p class="portfolio-description">A magical wedding celebration captured with elegance.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item animate-on-scroll stagger-animation" data-category="wedding">
+                    <img src="pre wedding shoot.jpg" alt="Pre-Wedding Photography" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">Pre-Wedding</div>
+                        <h3 class="portfolio-title">Pre-Wedding Romance</h3>
+                        <p class="portfolio-description">Romantic moments before the big day.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item animate-on-scroll stagger-animation" data-category="portrait">
+                    <img src="Model Portrait.jpg" alt="Model Portrait" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">Portrait</div>
+                        <h3 class="portfolio-title">Model Portrait</h3>
+                        <p class="portfolio-description">Professional portrait showcasing natural beauty.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item animate-on-scroll stagger-animation" data-category="baby">
+                    <img src="Baby.jpg" alt="Baby Photography" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">Baby</div>
+                        <h3 class="portfolio-title">Adorable Baby</h3>
+                        <p class="portfolio-description">Capturing precious early moments.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item animate-on-scroll stagger-animation" data-category="baby">
+                    <img src="New born baby shoot.jpg" alt="Newborn Photography" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">Newborn</div>
+                        <h3 class="portfolio-title">Newborn Bliss</h3>
+                        <p class="portfolio-description">Delicate newborn photography with artistic touch.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item animate-on-scroll stagger-animation" data-category="maternity">
+                    <img src="Maternity shoot.jpg" alt="Maternity Photography" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">Maternity</div>
+                        <h3 class="portfolio-title">Maternity Glow</h3>
+                        <p class="portfolio-description">Beautiful maternity moments captured with grace.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item animate-on-scroll stagger-animation" data-category="haldi">
+                    <img src="Haldi.jpg" alt="Haldi Ceremony" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">Haldi</div>
+                        <h3 class="portfolio-title">Haldi Ceremony</h3>
+                        <p class="portfolio-description">Traditional haldi celebration with vibrant colors.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item animate-on-scroll stagger-animation" data-category="portrait">
+                    <img src="Model Candid.jpg" alt="Candid Portrait" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">Candid</div>
+                        <h3 class="portfolio-title">Natural Candid</h3>
+                        <p class="portfolio-description">Spontaneous moments captured beautifully.</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item animate-on-scroll stagger-animation" data-category="wedding">
+                    <img src="Bridal Makeup shoot.jpg" alt="Bridal Makeup" class="portfolio-image">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-category">Bridal</div>
+                        <h3 class="portfolio-title">Bridal Beauty</h3>
+                        <p class="portfolio-description">Stunning bridal makeup and photography.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image-wrapper animate-on-scroll">
+                <div class="about-image-main">
+                    <img src="Model shoot.jpg" alt="Professional Photography Setup">
+                </div>
+                <div class="about-floating-card">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+            </div>
+
+            <div class="about-content animate-on-scroll">
+                <h3>About Our Studio</h3>
+                <h2>Crafting Visual Stories That Last Forever</h2>
+                <p>
+                    Founded with a passion for capturing life's most beautiful moments, TechDharmaStudio has grown into a premier photography and cinematography studio in Nagpur. We believe that every moment has a story to tell, and our mission is to preserve these stories with artistic excellence and technical precision.
+                </p>
+                <p>
+                    Our team combines years of experience with cutting-edge technology to deliver results that exceed expectations. We don't just take photos; we create timeless pieces of art that you'll treasure for generations.
+                </p>
+
+                <div class="about-features">
+                    <div class="about-feature">
+                        <div class="feature-icon">🏆</div>
+                        <div class="feature-text">
+                            <h4>Award-Winning</h4>
+                            <p>Recognized for excellence in photography and cinematography.</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="feature-icon">⚡</div>
+                        <div class="feature-text">
+                            <h4>Fast Delivery</h4>
+                            <p>Quick turnaround without compromising on quality.</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="feature-icon">💎</div>
+                        <div class="feature-text">
+                            <h4>Premium Quality</h4>
+                            <p>Using the latest equipment and editing techniques.</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <div class="feature-icon">🤝</div>
+                        <div class="feature-text">
+                            <h4>Personal Touch</h4>
+                            <p>Dedicated attention to every client's unique vision.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-subtitle">Investment</div>
+                <h2 class="section-title">Choose Your Perfect Package</h2>
+                <p class="section-description">
+                    Transparent pricing for exceptional value. Each package is designed to meet different needs while maintaining our signature quality.
+                </p>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card animate-on-scroll stagger-animation">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Essential</h3>
+                        <p class="pricing-subtitle">Perfect for intimate sessions</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price-currency">₹</span>
+                        <span class="price-amount">15,999</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>2-hour photography session</li>
+                        <li>50 edited high-resolution images</li>
+                        <li>Online gallery access</li>
+                        <li>Personal usage rights</li>
+                        <li>Professional editing</li>
+                    </ul>
+                    <a href="#contact" class="pricing-cta">Choose Essential</a>
+                </div>
+
+                <div class="pricing-card featured animate-on-scroll stagger-animation">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Premium</h3>
+                        <p class="pricing-subtitle">Most popular choice</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price-currency">₹</span>
+                        <span class="price-amount">35,999</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>6-hour coverage</li>
+                        <li>200+ edited images</li>
+                        <li>Pre-wedding session included</li>
+                        <li>Online gallery & mobile app</li>
+                        <li>USB drive with all photos</li>
+                        <li>Print release</li>
+                        <li>24/7 customer support</li>
+                    </ul>
+                    <a href="#contact" class="pricing-cta">Choose Premium</a>
+                </div>
+
+                <div class="pricing-card animate-on-scroll stagger-animation">
+                    <div class="pricing-header">
+                        <h3 class="pricing-title">Luxury</h3>
+                        <p class="pricing-subtitle">Ultimate experience</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price-currency">₹</span>
+                        <span class="price-amount">69,999</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>Full-day coverage</li>
+                        <li>500+ edited images</li>
+                        <li>Cinematic highlight film</li>
+                        <li>Second photographer</li>
+                        <li>Drone photography</li>
+                        <li>Custom photo album</li>
+                        <li>Commercial usage rights</li>
+                        <li>Priority booking</li>
+                    </ul>
+                    <a href="#contact" class="pricing-cta">Choose Luxury</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <div class="section-subtitle">Get In Touch</div>
+                <h2 class="section-title">Let's Create Something Beautiful Together</h2>
+                <p class="section-description">
+                    Ready to capture your special moments? Contact us to discuss your vision and let's bring your story to life.
+                </p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-info animate-on-scroll">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>Studio Location</h4>
+                            <p>Bhagwan Nagar, Nagpur<br>Maharashtra 440027<br>Opp Bank of Maharashtra</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>+91 7410151083</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>techdharmastudio@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div class="contact-details">
+                            <h4>Business Hours</h4>
+                            <p>Mon - Fri: 9:00 AM - 6:00 PM<br>Sat: 10:00 AM - 4:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form animate-on-scroll" id="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Your last name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+91 98765 43210">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service" class="form-label">Service Interest</label>
+                        <select id="service" name="service" class="form-input" required>
+                            <option value="">Select a service</option>
+                            <option value="wedding">Wedding Photography</option>
+                            <option value="pre-wedding">Pre-Wedding Session</option>
+                            <option value="portrait">Portrait Photography</option>
+                            <option value="baby">Baby Photography</option>
+                            <option value="maternity">Maternity Photography</option>
+                            <option value="haldi">Haldi Ceremony</option>
+                            <option value="corporate">Corporate Event</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date" class="form-label">Preferred Date</label>
+                            <input type="date" id="date" name="date" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="budget" class="form-label">Budget Range</label>
+                            <select id="budget" name="budget" class="form-input">
+                                <option value="">Select budget range</option>
+                                <option value="15000-30000">₹15,000 - ₹30,000</option>
+                                <option value="30000-50000">₹30,000 - ₹50,000</option>
+                                <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                                <option value="100000+">₹1,00,000+</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message" class="form-label">Tell us about your vision</label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Share details about your event, style preferences, and any special requirements..."></textarea>
+                    </div>
+
+                    <button type="submit" class="form-submit">
+                        <span>Send Message</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand animate-on-scroll">
+                    <h3>TechDharmaStudio</h3>
+                    <p>
+                        Capturing life's most precious moments with artistic excellence and technical precision. Every frame tells a story, every story deserves to be remembered.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">📷</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">📌</a>
+                    </div>
+                </div>
+
+                <div class="footer-section animate-on-scroll">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">Wedding Photography</a></li>
+                        <li><a href="#services">Pre-Wedding Sessions</a></li>
+                        <li><a href="#services">Portrait Photography</a></li>
+                        <li><a href="#services">Baby Photography</a></li>
+                        <li><a href="#services">Maternity Photography</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section animate-on-scroll">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section animate-on-scroll">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Photography Tips</a></li>
+                        <li><a href="#">Wedding Planning</a></li>
+                        <li><a href="#">Client Login</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 TechDharmaStudio. All rights reserved. | Designed with ❤️ for capturing memories in Nagpur.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scroll-top">↑</button>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 2000);
+        });
+
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        const cursorFollower = document.getElementById('cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX - 20 + 'px';
+                cursorFollower.style.top = e.clientY - 20 + 'px';
+            }, 100);
+        });
+
+        // Cursor hover effects
+        const hoverElements = document.querySelectorAll('a, button, .service-card, .portfolio-item, .pricing-card');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor-expand');
+                cursorFollower.classList.add('cursor-expand');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-expand');
+                cursorFollower.classList.remove('cursor-expand');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking links
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        const navLinks = document.querySelectorAll('a[href^="#"]');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Portfolio filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 100);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        const animateElements = document.querySelectorAll('.animate-on-scroll');
+        animateElements.forEach(el => observer.observe(el));
+
+        // Scroll to top button
+        const scrollTopBtn = document.getElementById('scroll-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Service card mouse tracking
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                
+                card.style.setProperty('--mouse-x', x + '%');
+                card.style.setProperty('--mouse-y', y + '%');
+            });
+        });
+
+        // Form handling
+        const contactForm = document.getElementById('contact-form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Show success message (in real implementation, you'd send to server)
+            const submitBtn = contactForm.querySelector('.form-submit');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<span>Sending...</span>';
+            submitBtn.style.background = 'var(--gray)';
+            
+            setTimeout(() => {
+                submitBtn.innerHTML = '<span>Message Sent! ✓</span>';
+                submitBtn.style.background = '#10B981';
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.style.background = '';
+                    contactForm.reset();
+                }, 2000);
+            }, 1000);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroContent = document.querySelector('.hero-content');
+            const heroVideo = document.querySelector('.hero-video');
+            
+            if (heroContent && heroVideo) {
+                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+                heroVideo.style.transform = `translate(-50%, -50%) scale(${1 + scrolled * 0.0005})`;
+            }
+        });
+
+        // Add loading animation to images
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            img.addEventListener('load', () => {
+                img.style.opacity = '1';
+            });
+        });
+
+        // Pricing card hover effect
+        const pricingCards = document.querySelectorAll('.pricing-card');
+        pricingCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                pricingCards.forEach(otherCard => {
+                    if (otherCard !== card) {
+                        otherCard.style.opacity = '0.7';
+                        otherCard.style.transform = 'scale(0.95)';
+                    }
+                });
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                pricingCards.forEach(otherCard => {
+                    otherCard.style.opacity = '1';
+                    otherCard.style.transform = '';
+                });
+            });
+        });
+
+        // Add typing effect to hero subtitle
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        if (heroSubtitle) {
+            const text = heroSubtitle.textContent;
+            heroSubtitle.textContent = '';
+            
+            setTimeout(() => {
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < text.length) {
+                        heroSubtitle.textContent += text.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 100);
+                    }
+                };
+                typeWriter();
+            }, 1000);
+        }
+
+        // Background particles animation
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '2px';
+            particle.style.height = '2px';
+            particle.style.background = 'var(--gold)';
+            particle.style.borderRadius = '50%';
+            particle.style.opacity = '0.3';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1';
+            
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = window.innerHeight + 'px';
+            
+            document.body.appendChild(particle);
+            
+            const duration = Math.random() * 3000 + 2000;
+            const animation = particle.animate([
+                { transform: 'translateY(0px)', opacity: 0.3 },
+                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'linear'
+            });
+            
+            animation.onfinish = () => {
+                particle.remove();
+            };
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 300);
+
+        console.log('🎨 TechDharmaStudio website loaded successfully!');
+    </script>
+</body>
+</html>
