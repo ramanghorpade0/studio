@@ -361,6 +361,8 @@
             justify-content: center;
             flex-wrap: wrap;
             animation: fadeInUp 1s ease 0.9s both;
+            position: relative;
+            z-index: 10;
         }
 
         .btn-primary {
@@ -1377,7 +1379,7 @@
         .mt-2 { margin-top: 2rem; }
         .mt-3 { margin-top: 3rem; }
 
-        /* Mobile Responsive Breakpoints */
+        /* Mobile Responsive Breakpoints - Enhanced for better mobile experience */
         @media (max-width: 1200px) {
             .nav-container {
                 padding: 0 2rem;
@@ -1411,6 +1413,7 @@
 
             .mobile-menu-toggle {
                 display: flex;
+                z-index: 10001;
             }
 
             .nav-menu {
@@ -1433,6 +1436,7 @@
                 flex-direction: column;
                 gap: 1rem;
                 align-items: center;
+                width: 100%;
             }
 
             .btn-primary,
@@ -1440,6 +1444,8 @@
                 width: 100%;
                 max-width: 300px;
                 text-align: center;
+                padding: 1.5rem 2rem;
+                font-size: 1.1rem;
             }
 
             .services-grid,
@@ -1486,15 +1492,27 @@
 
             .portfolio-filters {
                 gap: 0.5rem;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+                justify-content: flex-start;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+
+            .portfolio-filters::-webkit-scrollbar {
+                display: none;
             }
 
             .filter-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.8rem;
+                padding: 0.8rem 1.2rem;
+                font-size: 0.85rem;
+                white-space: nowrap;
+                flex-shrink: 0;
             }
 
             .pricing-card.featured {
                 transform: scale(1);
+                order: -1;
             }
 
             .pricing-card.featured:hover {
@@ -1511,6 +1529,115 @@
             .pricing,
             .contact {
                 padding: 5rem 0;
+            }
+            
+            /* Enhanced mobile hero section */
+            .hero {
+                min-height: 100vh;
+                height: auto;
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
+            
+            .hero-title {
+                font-size: clamp(2.2rem, 8vw, 4rem);
+                line-height: 1.2;
+                margin-bottom: 1rem;
+            }
+            
+            .hero-description {
+                font-size: 1.1rem;
+                margin-bottom: 2.5rem;
+            }
+            
+            /* Enhanced mobile navigation */
+            nav {
+                padding: 0.8rem 0;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            
+            /* Enhanced mobile service cards */
+            .service-card {
+                padding: 2rem;
+                border-radius: 16px;
+            }
+            
+            .service-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            /* Enhanced mobile portfolio */
+            .portfolio-grid {
+                gap: 1.5rem;
+            }
+            
+            .portfolio-item {
+                border-radius: 16px;
+            }
+            
+            .portfolio-overlay {
+                padding: 2rem 1.5rem 1.5rem;
+            }
+            
+            /* Enhanced mobile contact form */
+            .contact-form {
+                padding: 2rem;
+                border-radius: 20px;
+            }
+            
+            .contact-item {
+                padding: 1.5rem;
+                border-radius: 16px;
+            }
+            
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            /* Enhanced mobile footer */
+            .footer {
+                padding: 4rem 0 2rem;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            /* Touch-friendly enhancements */
+            .btn-primary, 
+            .btn-secondary, 
+            .filter-btn, 
+            .pricing-cta, 
+            .form-submit, 
+            .social-link {
+                min-height: 54px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* Improved mobile animations */
+            .service-card,
+            .portfolio-item,
+            .pricing-card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            
+            /* Mobile-specific enhancements for better UX */
+            .mobile-only {
+                display: block;
+            }
+            
+            .desktop-only {
+                display: none;
             }
         }
 
@@ -1535,7 +1662,7 @@
             .service-card,
             .pricing-card,
             .contact-form {
-                padding: 2rem;
+                padding: 1.8rem;
             }
 
             .contact-item {
@@ -1587,6 +1714,28 @@
             .portfolio-overlay {
                 padding: 2rem 1.5rem 1.5rem;
             }
+            
+            /* Enhanced for small mobile */
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                padding: 1.3rem 2rem;
+            }
+            
+            .service-card {
+                padding: 1.5rem;
+            }
+            
+            .pricing-card {
+                padding: 1.8rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1598,16 +1747,18 @@
             .btn-secondary {
                 max-width: none;
                 width: 100%;
+                padding: 1.4rem 2rem;
             }
 
             .service-card,
             .pricing-card,
             .contact-form {
                 padding: 1.5rem;
+                border-radius: 14px;
             }
 
             .contact-item {
-                padding: 1rem;
+                padding: 1.2rem;
             }
 
             .footer-content {
@@ -1633,7 +1784,35 @@
             .contact-form,
             .contact-item,
             .portfolio-item {
-                border-radius: 15px;
+                border-radius: 14px;
+            }
+            
+            /* Ultra mobile enhancements */
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .service-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+            
+            .portfolio-filters {
+                margin-bottom: 2.5rem;
+            }
+            
+            .filter-btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.8rem;
             }
         }
 
@@ -1648,6 +1827,16 @@
 
             .section-header {
                 margin-bottom: 1.5rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                padding: 1.2rem 1.5rem;
+                font-size: 1rem;
             }
         }
 
@@ -1665,6 +1854,16 @@
 
             .hero-title {
                 font-size: clamp(2rem, 6vw, 4rem);
+            }
+            
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .mobile-menu {
+                padding: 2rem 0;
+                justify-content: flex-start;
+                overflow-y: auto;
             }
         }
 
@@ -1700,6 +1899,16 @@
             .footer-links a:hover {
                 padding-left: 0;
             }
+            
+            /* Improved touch targets */
+            .nav-link,
+            .footer-links a {
+                padding: 0.5rem 0;
+            }
+            
+            .filter-btn {
+                padding: 1rem 1.5rem;
+            }
         }
 
         /* Reduce Motion for Accessibility */
@@ -1713,6 +1922,59 @@
             .floating-element-1,
             .floating-element-2 {
                 display: none;
+            }
+        }
+        
+        /* Mobile-specific enhancements */
+        .mobile-optimized-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+        
+        .touch-optimized-button {
+            min-height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        
+        /* Enhanced mobile navigation */
+        @media (max-width: 968px) {
+            .mobile-menu {
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+            }
+            
+            .mobile-menu a {
+                padding: 1rem 2rem;
+                width: 100%;
+                text-align: center;
+                font-size: 1.4rem;
+                position: relative;
+            }
+            
+            .mobile-menu a::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 40%;
+                height: 1px;
+                background: rgba(255,255,255,0.1);
+            }
+            
+            .mobile-menu a:last-child::after {
+                display: none;
+            }
+            
+            .mobile-menu a.btn-primary {
+                background: var(--gradient-1);
+                border-radius: 50px;
+                margin: 1rem;
+                width: auto;
             }
         }
     </style>
@@ -1774,7 +2036,7 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-background">
-            <video class="hero-video" autoplay muted loop>
+            <video class="hero-video" autoplay muted loop playsinline>
                 <source src="https://player.vimeo.com/external/299218053.hd.mp4?s=cd5c2f9b8c88be026f2b2a7f0b37e0b8f50e73e7&profile_id=119" type="video/mp4">
             </video>
         </div>
@@ -1787,10 +2049,10 @@
                 We create timeless photography and cinematic experiences that preserve your memories with unparalleled artistry and elegance.
             </p>
             <div class="hero-cta-group">
-                <a href="#portfolio" class="btn-primary">
+                <a href="#portfolio" class="btn-primary touch-optimized-button">
                     <span>View Our Work</span>
                 </a>
-                <a href="#contact" class="btn-secondary">Book Consultation</a>
+                <a href="#contact" class="btn-secondary touch-optimized-button">Book Consultation</a>
             </div>
         </div>
 
@@ -1920,7 +2182,7 @@
 
             <div class="portfolio-grid" id="portfolio-grid">
                 <div class="portfolio-item animate-on-scroll stagger-animation" data-category="wedding">
-                    <img src="Wedding.jpg" alt="Wedding Photography" class="portfolio-image">
+                    <img src="Wedding.jpg" alt="Wedding Photography" class="portfolio-image mobile-optimized-image">
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">Wedding</div>
                         <h3 class="portfolio-title">Beautiful Wedding</h3>
@@ -1929,7 +2191,7 @@
                 </div>
 
                 <div class="portfolio-item animate-on-scroll stagger-animation" data-category="wedding">
-                    <img src="pre wedding shoot.jpg" alt="Pre-Wedding Photography" class="portfolio-image">
+                    <img src="pre wedding shoot.jpg" alt="Pre-Wedding Photography" class="portfolio-image mobile-optimized-image">
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">Pre-Wedding</div>
                         <h3 class="portfolio-title">Pre-Wedding Romance</h3>
@@ -1938,7 +2200,7 @@
                 </div>
 
                 <div class="portfolio-item animate-on-scroll stagger-animation" data-category="portrait">
-                    <img src="Model Portrait.jpg" alt="Model Portrait" class="portfolio-image">
+                    <img src="Model Portrait.jpg" alt="Model Portrait" class="portfolio-image mobile-optimized-image">
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">Portrait</div>
                         <h3 class="portfolio-title">Model Portrait</h3>
@@ -1947,7 +2209,7 @@
                 </div>
 
                 <div class="portfolio-item animate-on-scroll stagger-animation" data-category="baby">
-                    <img src="Baby.jpg" alt="Baby Photography" class="portfolio-image">
+                    <img src="Baby.jpg" alt="Baby Photography" class="portfolio-image mobile-optimized-image">
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">Baby</div>
                         <h3 class="portfolio-title">Adorable Baby</h3>
@@ -1956,7 +2218,7 @@
                 </div>
 
                 <div class="portfolio-item animate-on-scroll stagger-animation" data-category="baby">
-                    <img src="New born baby shoot.jpg" alt="Newborn Photography" class="portfolio-image">
+                    <img src="New born baby shoot.jpg" alt="Newborn Photography" class="portfolio-image mobile-optimized-image">
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">Newborn</div>
                         <h3 class="portfolio-title">Newborn Bliss</h3>
@@ -1965,7 +2227,7 @@
                 </div>
 
                 <div class="portfolio-item animate-on-scroll stagger-animation" data-category="maternity">
-                    <img src="Maternity shoot.jpg" alt="Maternity Photography" class="portfolio-image">
+                    <img src="Maternity shoot.jpg" alt="Maternity Photography" class="portfolio-image mobile-optimized-image">
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">Maternity</div>
                         <h3 class="portfolio-title">Maternity Glow</h3>
@@ -1974,7 +2236,7 @@
                 </div>
 
                 <div class="portfolio-item animate-on-scroll stagger-animation" data-category="haldi">
-                    <img src="Haldi.jpg" alt="Haldi Ceremony" class="portfolio-image">
+                    <img src="Haldi.jpg" alt="Haldi Ceremony" class="portfolio-image mobile-optimized-image">
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">Haldi</div>
                         <h3 class="portfolio-title">Haldi Ceremony</h3>
@@ -1983,7 +2245,7 @@
                 </div>
 
                 <div class="portfolio-item animate-on-scroll stagger-animation" data-category="portrait">
-                    <img src="Model Candid.jpg" alt="Candid Portrait" class="portfolio-image">
+                    <img src="Model Candid.jpg" alt="Candid Portrait" class="portfolio-image mobile-optimized-image">
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">Candid</div>
                         <h3 class="portfolio-title">Natural Candid</h3>
@@ -1992,7 +2254,7 @@
                 </div>
 
                 <div class="portfolio-item animate-on-scroll stagger-animation" data-category="wedding">
-                    <img src="Bridal Makeup shoot.jpg" alt="Bridal Makeup" class="portfolio-image">
+                    <img src="Bridal Makeup shoot.jpg" alt="Bridal Makeup" class="portfolio-image mobile-optimized-image">
                     <div class="portfolio-overlay">
                         <div class="portfolio-category">Bridal</div>
                         <h3 class="portfolio-title">Bridal Beauty</h3>
@@ -2008,7 +2270,7 @@
         <div class="about-container">
             <div class="about-image-wrapper animate-on-scroll">
                 <div class="about-image-main">
-                    <img src="Model shoot.jpg" alt="Professional Photography Setup">
+                    <img src="Model shoot.jpg" alt="Professional Photography Setup" class="mobile-optimized-image">
                 </div>
                 <div class="about-floating-card">
                     <div class="stat-number">500+</div>
@@ -2088,7 +2350,7 @@
                         <li>Personal usage rights</li>
                         <li>Professional editing</li>
                     </ul>
-                    <a href="#contact" class="pricing-cta">Choose Essential</a>
+                    <a href="#contact" class="pricing-cta touch-optimized-button">Choose Essential</a>
                 </div>
 
                 <div class="pricing-card featured animate-on-scroll stagger-animation">
@@ -2109,7 +2371,7 @@
                         <li>Print release</li>
                         <li>24/7 customer support</li>
                     </ul>
-                    <a href="#contact" class="pricing-cta">Choose Premium</a>
+                    <a href="#contact" class="pricing-cta touch-optimized-button">Choose Premium</a>
                 </div>
 
                 <div class="pricing-card animate-on-scroll stagger-animation">
@@ -2131,7 +2393,7 @@
                         <li>Commercial usage rights</li>
                         <li>Priority booking</li>
                     </ul>
-                    <a href="#contact" class="pricing-cta">Choose Luxury</a>
+                    <a href="#contact" class="pricing-cta touch-optimized-button">Choose Luxury</a>
                 </div>
             </div>
         </div>
@@ -2231,363 +2493,429 @@
                             <select id="budget" name="budget" class="form-input">
                                 <option value="">Select budget range</option>
                                 <option value="15000-30000">₹15,000 - ₹30,000</option>
-                                <option value="30000-50000">₹30,000 - ₹50,000</option>
-                                <option value="50000-100000">₹50,000 - ₹1,00,000</option>
-                                <option value="100000+">₹1,00,000+</option>
-                            </select>
-                        </div>
+                                                            <option value="30000-50000">₹30,000 - ₹50,000</option>
+                            <option value="50000-100000">₹50,000 - ₹1,00,000</option>
+                            <option value="100000+">₹1,00,000+</option>
+                        </select>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="message" class="form-label">Tell us about your vision</label>
-                        <textarea id="message" name="message" class="form-textarea" placeholder="Share details about your event, style preferences, and any special requirements..."></textarea>
-                    </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Tell us about your vision</label>
+                    <textarea id="message" name="message" class="form-textarea" placeholder="Share details about your event, style preferences, and any special requirements..."></textarea>
+                </div>
 
-                    <button type="submit" class="form-submit">
-                        <span>Send Message</span>
-                    </button>
-                </form>
+                <button type="submit" class="form-submit touch-optimized-button">
+                    <span>Send Message</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-brand animate-on-scroll">
+                <h3>TechDharmaStudio</h3>
+                <p>
+                    Capturing life's most precious moments with artistic excellence and technical precision. Every frame tells a story, every story deserves to be remembered.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">🐦</a>
+                    <a href="#" class="social-link">📌</a>
+                </div>
+            </div>
+
+            <div class="footer-section animate-on-scroll">
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">Wedding Photography</a></li>
+                    <li><a href="#services">Pre-Wedding Sessions</a></li>
+                    <li><a href="#services">Portrait Photography</a></li>
+                    <li><a href="#services">Baby Photography</a></li>
+                    <li><a href="#services">Maternity Photography</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section animate-on-scroll">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section animate-on-scroll">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Photography Tips</a></li>
+                    <li><a href="#">Wedding Planning</a></li>
+                    <li><a href="#">Client Login</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-brand animate-on-scroll">
-                    <h3>TechDharmaStudio</h3>
-                    <p>
-                        Capturing life's most precious moments with artistic excellence and technical precision. Every frame tells a story, every story deserves to be remembered.
-                    </p>
-                    <div class="social-links">
-                        <a href="#" class="social-link">📘</a>
-                        <a href="#" class="social-link">📷</a>
-                        <a href="#" class="social-link">🐦</a>
-                        <a href="#" class="social-link">📌</a>
-                    </div>
-                </div>
-
-                <div class="footer-section animate-on-scroll">
-                    <h4>Services</h4>
-                    <ul class="footer-links">
-                        <li><a href="#services">Wedding Photography</a></li>
-                        <li><a href="#services">Pre-Wedding Sessions</a></li>
-                        <li><a href="#services">Portrait Photography</a></li>
-                        <li><a href="#services">Baby Photography</a></li>
-                        <li><a href="#services">Maternity Photography</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section animate-on-scroll">
-                    <h4>Company</h4>
-                    <ul class="footer-links">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#portfolio">Portfolio</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section animate-on-scroll">
-                    <h4>Resources</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Photography Tips</a></li>
-                        <li><a href="#">Wedding Planning</a></li>
-                        <li><a href="#">Client Login</a></li>
-                        <li><a href="#">FAQs</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 TechDharmaStudio. All rights reserved. | Designed with ❤️ for capturing memories in Nagpur.</p>
-            </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 TechDharmaStudio. All rights reserved. | Designed with ❤️ for capturing memories in Nagpur.</p>
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scroll-top">↑</button>
+<!-- Scroll to Top Button -->
+<button class="scroll-top" id="scroll-top">↑</button>
 
-    <script>
-        // Loader
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.classList.add('hidden');
-            }, 2000);
+<script>
+    // Loader
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        setTimeout(() => {
+            loader.classList.add('hidden');
+        }, 2000);
+    });
+
+    // Custom Cursor
+    const cursor = document.getElementById('cursor');
+    const cursorFollower = document.getElementById('cursor-follower');
+
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        
+        setTimeout(() => {
+            cursorFollower.style.left = e.clientX - 20 + 'px';
+            cursorFollower.style.top = e.clientY - 20 + 'px';
+        }, 100);
+    });
+
+    // Cursor hover effects
+    const hoverElements = document.querySelectorAll('a, button, .service-card, .portfolio-item, .pricing-card');
+    hoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('cursor-expand');
+            cursorFollower.classList.add('cursor-expand');
         });
-
-        // Custom Cursor
-        const cursor = document.getElementById('cursor');
-        const cursorFollower = document.getElementById('cursor-follower');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX - 20 + 'px';
-                cursorFollower.style.top = e.clientY - 20 + 'px';
-            }, 100);
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('cursor-expand');
+            cursorFollower.classList.remove('cursor-expand');
         });
+    });
 
-        // Cursor hover effects
-        const hoverElements = document.querySelectorAll('a, button, .service-card, .portfolio-item, .pricing-card');
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('cursor-expand');
-                cursorFollower.classList.add('cursor-expand');
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('cursor-expand');
-                cursorFollower.classList.remove('cursor-expand');
-            });
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Mobile menu
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileToggle.addEventListener('click', () => {
+        mobileToggle.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close mobile menu when clicking links
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
         });
+    });
 
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Mobile menu
-        const mobileToggle = document.getElementById('mobile-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileToggle.addEventListener('click', () => {
-            mobileToggle.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking links
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileToggle.classList.remove('active');
-                mobileMenu.classList.remove('active');
-            });
-        });
-
-        // Smooth scrolling for navigation links
-        const navLinks = document.querySelectorAll('a[href^="#"]');
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                const targetSection = document.querySelector(targetId);
-                if (targetSection) {
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Portfolio filtering
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterBtns.forEach(b => b.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
-                
-                const filter = btn.getAttribute('data-filter');
-                
-                portfolioItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'scale(1)';
-                        }, 100);
-                    } else {
-                        item.style.opacity = '0';
-                        item.style.transform = 'scale(0.8)';
-                        setTimeout(() => {
-                            item.style.display = 'none';
-                        }, 300);
-                    }
-                });
-            });
-        });
-
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animated');
-                }
-            });
-        }, observerOptions);
-
-        const animateElements = document.querySelectorAll('.animate-on-scroll');
-        animateElements.forEach(el => observer.observe(el));
-
-        // Scroll to top button
-        const scrollTopBtn = document.getElementById('scroll-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                scrollTopBtn.classList.add('visible');
-            } else {
-                scrollTopBtn.classList.remove('visible');
-            }
-        });
-
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Service card mouse tracking
-        const serviceCards = document.querySelectorAll('.service-card');
-        serviceCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                
-                card.style.setProperty('--mouse-x', x + '%');
-                card.style.setProperty('--mouse-y', y + '%');
-            });
-        });
-
-        // Form handling
-        const contactForm = document.getElementById('contact-form');
-        contactForm.addEventListener('submit', (e) => {
+    // Smooth scrolling for navigation links
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Show success message (in real implementation, you'd send to server)
-            const submitBtn = contactForm.querySelector('.form-submit');
-            const originalText = submitBtn.innerHTML;
-            
-            submitBtn.innerHTML = '<span>Sending...</span>';
-            submitBtn.style.background = 'var(--gray)';
-            
-            setTimeout(() => {
-                submitBtn.innerHTML = '<span>Message Sent! ✓</span>';
-                submitBtn.style.background = '#10B981';
-                
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.style.background = '';
-                    contactForm.reset();
-                }, 2000);
-            }, 1000);
-        });
-
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const heroContent = document.querySelector('.hero-content');
-            const heroVideo = document.querySelector('.hero-video');
-            
-            if (heroContent && heroVideo) {
-                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-                heroVideo.style.transform = `translate(-50%, -50%) scale(${1 + scrolled * 0.0005})`;
+            const targetId = link.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         });
+    });
 
-        // Add loading animation to images
-        const images = document.querySelectorAll('img');
-        images.forEach(img => {
-            img.addEventListener('load', () => {
-                img.style.opacity = '1';
-            });
-        });
+    // Portfolio filtering
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
 
-        // Pricing card hover effect
-        const pricingCards = document.querySelectorAll('.pricing-card');
-        pricingCards.forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                pricingCards.forEach(otherCard => {
-                    if (otherCard !== card) {
-                        otherCard.style.opacity = '0.7';
-                        otherCard.style.transform = 'scale(0.95)';
-                    }
-                });
-            });
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            btn.classList.add('active');
             
-            card.addEventListener('mouseleave', () => {
-                pricingCards.forEach(otherCard => {
-                    otherCard.style.opacity = '1';
-                    otherCard.style.transform = '';
-                });
+            const filter = btn.getAttribute('data-filter');
+            
+            portfolioItems.forEach(item => {
+                if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 100);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
             });
         });
+    });
 
-        // Add typing effect to hero subtitle
-        const heroSubtitle = document.querySelector('.hero-subtitle');
-        if (heroSubtitle) {
-            const text = heroSubtitle.textContent;
-            heroSubtitle.textContent = '';
+    // Scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animated');
+            }
+        });
+    }, observerOptions);
+
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    animateElements.forEach(el => observer.observe(el));
+
+    // Scroll to top button
+    const scrollTopBtn = document.getElementById('scroll-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // Service card mouse tracking
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            card.style.setProperty('--mouse-x', x + '%');
+            card.style.setProperty('--mouse-y', y + '%');
+        });
+    });
+
+    // Form handling
+    const contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Show success message (in real implementation, you'd send to server)
+        const submitBtn = contactForm.querySelector('.form-submit');
+        const originalText = submitBtn.innerHTML;
+        
+        submitBtn.innerHTML = '<span>Sending...</span>';
+        submitBtn.style.background = 'var(--gray)';
+        
+        setTimeout(() => {
+            submitBtn.innerHTML = '<span>Message Sent! ✓</span>';
+            submitBtn.style.background = '#10B981';
             
             setTimeout(() => {
-                let i = 0;
-                const typeWriter = () => {
-                    if (i < text.length) {
-                        heroSubtitle.textContent += text.charAt(i);
-                        i++;
-                        setTimeout(typeWriter, 100);
-                    }
-                };
-                typeWriter();
-            }, 1000);
-        }
+                submitBtn.innerHTML = originalText;
+                submitBtn.style.background = '';
+                contactForm.reset();
+            }, 2000);
+        }, 1000);
+    });
 
-        // Background particles animation
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.style.position = 'fixed';
-            particle.style.width = '2px';
-            particle.style.height = '2px';
-            particle.style.background = 'var(--gold)';
-            particle.style.borderRadius = '50%';
-            particle.style.opacity = '0.3';
-            particle.style.pointerEvents = 'none';
-            particle.style.zIndex = '1';
-            
-            particle.style.left = Math.random() * window.innerWidth + 'px';
-            particle.style.top = window.innerHeight + 'px';
-            
-            document.body.appendChild(particle);
-            
-            const duration = Math.random() * 3000 + 2000;
-            const animation = particle.animate([
-                { transform: 'translateY(0px)', opacity: 0.3 },
-                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
-            ], {
-                duration: duration,
-                easing: 'linear'
+    // Parallax effect for hero section
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroContent = document.querySelector('.hero-content');
+        const heroVideo = document.querySelector('.hero-video');
+        
+        if (heroContent && heroVideo) {
+            heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+            heroVideo.style.transform = `translate(-50%, -50%) scale(${1 + scrolled * 0.0005})`;
+        }
+    });
+
+    // Add loading animation to images
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('load', () => {
+            img.style.opacity = '1';
+        });
+    });
+
+    // Pricing card hover effect
+    const pricingCards = document.querySelectorAll('.pricing-card');
+    pricingCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            pricingCards.forEach(otherCard => {
+                if (otherCard !== card) {
+                    otherCard.style.opacity = '0.7';
+                    otherCard.style.transform = 'scale(0.95)';
+                }
             });
-            
-            animation.onfinish = () => {
-                particle.remove();
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            pricingCards.forEach(otherCard => {
+                otherCard.style.opacity = '1';
+                otherCard.style.transform = '';
+            });
+        });
+    });
+
+    // Add typing effect to hero subtitle
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    if (heroSubtitle) {
+        const text = heroSubtitle.textContent;
+        heroSubtitle.textContent = '';
+        
+        setTimeout(() => {
+            let i = 0;
+            const typeWriter = () => {
+                if (i < text.length) {
+                    heroSubtitle.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
             };
+            typeWriter();
+        }, 1000);
+    }
+
+    // Background particles animation
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.style.position = 'fixed';
+        particle.style.width = '2px';
+        particle.style.height = '2px';
+        particle.style.background = 'var(--gold)';
+        particle.style.borderRadius = '50%';
+        particle.style.opacity = '0.3';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '1';
+        
+        particle.style.left = Math.random() * window.innerWidth + 'px';
+        particle.style.top = window.innerHeight + 'px';
+        
+        document.body.appendChild(particle);
+        
+        const duration = Math.random() * 3000 + 2000;
+        const animation = particle.animate([
+            { transform: 'translateY(0px)', opacity: 0.3 },
+            { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+        ], {
+            duration: duration,
+            easing: 'linear'
+        });
+        
+        animation.onfinish = () => {
+            particle.remove();
+        };
+    }
+
+    // Create particles periodically
+    setInterval(createParticle, 300);
+
+    // Mobile-specific enhancements
+    function handleMobileView() {
+        if (window.innerWidth <= 968) {
+            // Add mobile-specific classes for styling
+            document.body.classList.add('mobile-view');
+            
+            // Adjust hero section height for mobile
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.minHeight = '100vh';
+            }
+            
+            // Make sure all touch targets are appropriately sized
+            const touchElements = document.querySelectorAll('.btn-primary, .btn-secondary, .filter-btn, .pricing-cta');
+            touchElements.forEach(el => {
+                el.style.minHeight = '54px';
+                el.style.display = 'flex';
+                el.style.alignItems = 'center';
+                el.style.justifyContent = 'center';
+            });
+        } else {
+            document.body.classList.remove('mobile-view');
         }
+    }
 
-        // Create particles periodically
-        setInterval(createParticle, 300);
+    // Run on load and resize
+    window.addEventListener('load', handleMobileView);
+    window.addEventListener('resize', handleMobileView);
 
-        console.log('🎨 TechDharmaStudio website loaded successfully!');
-    </script>
+    // Mobile swipe detection for portfolio filters
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const portfolioFilters = document.querySelector('.portfolio-filters');
+    
+    if (portfolioFilters) {
+        portfolioFilters.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        portfolioFilters.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX) {
+                portfolioFilters.scrollBy({ left: 100, behavior: 'smooth' });
+            }
+            if (touchEndX > touchStartX) {
+                portfolioFilters.scrollBy({ left: -100, behavior: 'smooth' });
+            }
+        }
+    }
+
+    // Improved mobile menu animation
+    document.addEventListener('click', function(e) {
+        if (mobileMenu.classList.contains('active') && !e.target.closest('#mobile-menu') && !e.target.closest('#mobile-toggle')) {
+            mobileToggle.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    console.log('🎨 TechDharmaStudio website loaded successfully!');
+</script>
 </body>
 </html>
